@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import TaskItem from "./components/TaskItem";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => {
+  const [tasks, setTasks] = useState([
+    { id: 1, description: "Task 1", isCompleted: false },
+    { id: 2, description: "Task 2", isCompleted: false },
+    { id: 3, description: "Task 3", isCompleted: false }
+  ]);
+    const handleCleanTasks = () => {
+      setTasks([])
+    }
+    
+  return (  
+    <div>
+          
+        {tasks.map((task) => 
+           <TaskItem key={task.id} task={task}/>
+        )}
+        <button onClick={handleCleanTasks}>Limpar Tarefas</button>
     </div>
   );
 }
-
+ 
 export default App;
