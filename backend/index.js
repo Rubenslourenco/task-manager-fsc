@@ -34,6 +34,15 @@ app.post("/tasks", async (req, res) => {
    
 });
 
-
+app.delete("/tasks/:id", async (req, res) => {
+    try {
+        const  id  = req.params.id;
+        const deletedTask = await TaskModel.findByIdAndDelete(id);
+        res.status(200).send(deletedTask);
+    } catch (error) {
+        
+        res.status(500).json({ error: "Erro ao deletar tarefa" });
+    }
+});
 
 app.listen(3000);
