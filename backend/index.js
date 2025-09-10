@@ -22,6 +22,16 @@ app.get("/tasks", async (req, res) => {
     }
 });
 
+app.get("/tasks/:id", async (req, res) => {
+    try {
+        const taskId = req.params.id;
+        const task = await TaskModel.findById(taskId);
+        res.status(200).json(task);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 app.post("/tasks", async (req, res) => {
 
     try {
