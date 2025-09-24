@@ -1,15 +1,14 @@
 import express from"express";
+
+import TaskController from"../controller/task.controller.js";
 import TaskModel from"../models/task.models.js";
+
 
 const router = express.Router();
 
+
 router.get("/", async (req, res) => {
-    try {
-        const tasks = await TaskModel.find({});
-        res.status(200).json(tasks);
-    } catch (error) {
-        res.status(500).json({ error: "Erro ao buscar tarefas" });
-    }
+   return new TaskController(req, res).getTasks();
 });
 
 router.get("/:id", async (req, res) => {
