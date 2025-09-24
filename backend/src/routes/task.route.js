@@ -12,24 +12,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    try {
-        const taskId = req.params.id;
-        const task = await TaskModel.findById(taskId);
-        res.status(200).json(task);
-    } catch (error) {
-        console.log(error);
-    }
-})
+   return new TaskController(req, res).getTaskId();
+});
 
 router.post("/", async (req, res) => {
-
-    try {
-        const newtask = new TaskModel(req.body);
-        await newtask.save();
-        res.status(201).send(newtask);
-    } catch (error) {
-        res.status(500).json({ error: "Erro ao criar tarefa" });    
-    }
+   return new TaskController(req, res).createTask();
    
 });
 

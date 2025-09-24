@@ -13,7 +13,28 @@ class TaskController {
         this.res.status(200).json(tasks);
     } catch (error) {
         this.res.status(500).json({ error: "Erro ao buscar tarefas" });
+        }
     }
+
+    async getTaskId() {
+        try {
+            const taskId = this.req.params.id;
+            const task = await TaskModel.findById(taskId);
+            this.res.status(200).json(task);
+        } catch (error) {
+            this.res.status(500).json({ error: "Erro ao buscar tarefa" });
+        }
+    }
+
+    async createTask() {
+        try {
+            const newtask = new TaskModel(this.req.body);
+            await newtask.save();
+            this.res.status(201).json(newtask);
+
+        } catch (error) {
+            this.res.status(500).json({ error: "Erro ao criar tarefa" });
+        }
     }
 }
 
