@@ -37,6 +37,32 @@ class TaskController {
         }
     }
 
+    async updateTask() {
+        try {
+        const taskId = this.req.params.id;
+        const taskData = this.req.body;
+
+        const taskTpUpdate = await TaskModel.findById(taskId)
+
+        const allowedUpdates = ['isCompleted'];
+        const requestedUpdates = Object.keys(taskData);
+
+        for(const update of requestedUpdates) { 
+            if(allowedUpdates.includes(update)) {
+                taskTpUpdate[update] = taskData[update];
+        } else {
+            return this.res.status(500).send({ error: 'Atualização inválida!' });
+        }
+    }
+
+      await taskTpUpdate.save();
+      return this.res.status(200).send(taskTpUpdate);
+    } catch (error) {
+        console.log(error);
+        this.res.status(500).json({ error: "Erro ao atualizar tarefa" });
+    }
+    }
+
     async deleteTask() {
         try {
         const  id  = this.req.params.id;

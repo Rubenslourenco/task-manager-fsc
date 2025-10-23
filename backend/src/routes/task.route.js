@@ -21,29 +21,7 @@ router.post("/", async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-    try {
-        const taskId = req.params.id;
-        const taskData = req.body;
-
-        const taskTpUpdate = await TaskModel.findById(taskId)
-
-        const allowedUpdates = ['isCompleted'];
-        const requestedUpdates = Object.keys(taskData);
-
-        for(const update of requestedUpdates) {
-            if(allowedUpdates.includes(update)) {
-                taskTpUpdate[update] = taskData[update];
-        } else {
-            return res.status(500).send({ error: 'Atualização inválida!' });
-        }
-    }
-
-      await taskTpUpdate.save();
-      return  res.status(200).send(taskTpUpdate);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Erro ao atualizar tarefa" });
-    }
+    return new TaskController(req, res).updateTask();
 });
 
 router.delete("/:id", async (req, res) => {
