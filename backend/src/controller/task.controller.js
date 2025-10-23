@@ -36,6 +36,15 @@ class TaskController {
             this.res.status(500).json({ error: "Erro ao criar tarefa" });
         }
     }
-}
 
+    async deleteTask() {
+        try {
+        const  id  = this.req.params.id;
+        const deletedTask = await TaskModel.findByIdAndDelete(id);
+        this.res.status(200).send(deletedTask);
+    } catch (error) {
+        this.res.status(500).json({ error: "Erro ao deletar tarefa" });
+    }
+}
+}
 export default TaskController;

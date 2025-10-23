@@ -47,14 +47,7 @@ router.patch('/:id', async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    try {
-        const  id  = req.params.id;
-        const deletedTask = await TaskModel.findByIdAndDelete(id);
-        res.status(200).send(deletedTask);
-    } catch (error) {
-        
-        res.status(500).json({ error: "Erro ao deletar tarefa" });
-    }
+    return new TaskController(req, res).deleteTask();
 });
 
 export default router;
