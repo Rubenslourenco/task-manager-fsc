@@ -1,12 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
-import TaskRouter from "./src/routes/task.route.js";
+import cors from "cors";
 
+import TaskRouter from "./src/routes/task.route.js";
 import connectToDatabase from "./src/database/mongoose.database.js";
 
 
 dotenv.config();
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 connectToDatabase();

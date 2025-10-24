@@ -1,9 +1,10 @@
-const TaskItem = ({description}) => {
+const TaskItem = ({task}) => {
     return (
      <div>
-        <h1>{description}</h1>
+        <h1>{task.description}</h1>
+        <p>{task.isCompleted ? "Completo" : " Não completo"}</p>
     </div>
       );
 }
  
-export default TaskItem;
+export default TaskItem;  
