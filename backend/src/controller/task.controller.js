@@ -1,4 +1,6 @@
 import TaskModel from "../models/task.models.js";
+import { notFoundError } from "../errors/mongodb.errors.js";
+
 
 class TaskController {
     constructor(req, res) {
@@ -20,6 +22,10 @@ class TaskController {
         try {
             const taskId = this.req.params.id;
             const task = await TaskModel.findById(taskId);
+
+            if (!task) {
+                return notFoundError(this.res);
+            }
             this.res.status(200).json(task);
         } catch (error) {
             this.res.status(500).json({ error: "Erro ao buscar tarefa" });
@@ -44,6 +50,10 @@ class TaskController {
 
         const taskTpUpdate = await TaskModel.findById(taskId)
 
+        if(!taskTpUpdate) {
+            return notFoundError(this.res);
+        }
+
         const allowedUpdates = ['isCompleted'];
         const requestedUpdates = Object.keys(taskData);
 
@@ -65,8 +75,14 @@ class TaskController {
 
     async deleteTask() {
         try {
-        const  id  = this.req.params.id;
-        const deletedTask = await TaskModel.findByIdAndDelete(id);
+        const  taskId  = this.req.params.id;
+
+        const taskToDelete = await TaskModel.findById(taskId);
+
+        if(!taskToDelete) {
+            return notFoundError(this.res);
+        }
+        const deletedTask = await TaskModel.findByIdAndDelete(taskToDelete);
         this.res.status(200).send(deletedTask);
     } catch (error) {
         this.res.status(500).json({ error: "Erro ao deletar tarefa" });
