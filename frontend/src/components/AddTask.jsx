@@ -7,7 +7,8 @@ import './AddTask.scss';
 import CustomButton from './CustomButton';
 import  CustomInput  from './CustomInput';
 
-const AddTask = () => {
+
+const AddTask = ({fetchTasks}) => {
     const [task, setTask] = useState("")
 
     const onChange = (e) => {
@@ -24,8 +25,10 @@ const AddTask = () => {
                 description: task,
                 isCompleted: false
             });
+            await fetchTasks();
+            setTask("");
         } catch (error) {
-            
+        
         }
     }
 
