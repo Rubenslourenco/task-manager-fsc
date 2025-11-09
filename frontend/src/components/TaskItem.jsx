@@ -1,9 +1,18 @@
-import './TaskItem.scss';
-
+import axios from 'axios';
 import { AiFillDelete } from "react-icons/ai";
 
+import './TaskItem.scss';
 
-const TaskItem = ({task}) => {
+
+const TaskItem = ({task, fetchTasks}) => {
+
+  const handleTaskDelete = async () => {
+    try{
+      await axios.delete(`http://localhost:3000/tasks/${task._id}`);
+    }
+    catch (error){
+  }
+}
     return (
      <div className="task-item-container">
        <div className="task-description">
@@ -22,7 +31,8 @@ const TaskItem = ({task}) => {
                 <AiFillDelete
                     size={18}
                     color="#F97474"
-                   
+                   onClick={handleTaskDelete}
+                   key={task.id}
                 />
             </div>
     </div>
