@@ -32,7 +32,7 @@ const [tasks, setTasks] = useState([]);
             <h3>Ultimas tarefas</h3>
             <AddTask fetchTasks={fetchTasks} />
                 <div className="tasks-list">
-                  {tasks.filter(task => task.isCompleted === false).map(lastTask =>  <TaskItem fetchTasks={fetchTasks} task={lastTask} />)}
+                  {tasks.filter(task => task.isCompleted === false).map(lastTask =>  <TaskItem key={lastTask._id} fetchTasks={fetchTasks} task={lastTask} />)}
                 </div>
 
             </div>
@@ -40,7 +40,7 @@ const [tasks, setTasks] = useState([]);
             <div className="completed-tasks">
               <h3>Tarefas concluidas</h3>
                 <div className="tasks-list">
-                  {tasks.filter(task => task.isCompleted).map(lastTask => <TaskItem fetchTasks={fetchTasks} task={lastTask} />)}
+                  {tasks.filter(task => task.isCompleted).map(lastTask => <TaskItem key={lastTask._id} fetchTasks={fetchTasks} task={lastTask} />)}
                 </div>
             </div>
         </div>
