@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 import './Tasks.scss';
@@ -10,21 +10,19 @@ const Task = ({}) => {
     
 const [tasks, setTasks] = useState([]);
 
-  
-  const fetchTasks = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3000/tasks")
-      setTasks(data);
-      
-    } catch (error) {
-      
-    }
+const fetchTasks = useCallback(async () => {
+  try {
+    const { data } = await axios.get("http://localhost:3000/tasks")
+    setTasks(data);
+
+  } catch (error) {
+
   }
+}, []);
   
   useEffect(() => {
     fetchTasks();
-  }, []);
-
+  }, [fetchTasks]);
     return ( 
         <div className="tasks-container">
             <h2>Minhas Tarefas</h2>
