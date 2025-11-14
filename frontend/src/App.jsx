@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import HookUseState from './hook/HookUseState';
 import HookUseEffect from './hook/HookUseEffect';
+import HookUseRef from './hook/HookUseRef';
 
 import './App.scss';
 
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/hook-usestate" element={<HookUseState />} />
       <Route path="/hook-useeffect" element={<HookUseEffect />} />
+      <Route path="/hook-useref" element={<HookUseRef />} />
     </Routes>
   );
 }
